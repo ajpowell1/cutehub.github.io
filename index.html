@@ -73,6 +73,23 @@
           console.log('Error fetching kitten image:', error);
         });
     }
+	    function fetchBunnyImage() {
+      fetch('https://api.bunnies.io/v2/loop/random/?media=gif,png')
+        .then(response => response.json())
+        .then(data => {
+          const imgContainer = document.getElementById('image-container');
+          imgContainer.innerHTML = ''; // Remove previously generated images
+          const img = document.createElement('img');
+          img.src = data.media.poster || data.media.image;
+          imgContainer.appendChild(img);
+        })
+        .catch(error => {
+          console.log('Error fetching bunny image:', error);
+        });
+    }
+	
+
+
   </script>
 </head>
 <body>
@@ -80,6 +97,8 @@
   <div class="button-wrapper">
     <button class="eyebleach-button" onclick="fetchPuppyImage()">Puppy</button>
     <button class="eyebleach-button" onclick="fetchKittenImage()">Kitten</button>
+	<button class="eyebleach-button" onclick="fetchBunnyImage()">Bunny</button>
+
   </div>
   <div id="image-container"></div>
 </body>
