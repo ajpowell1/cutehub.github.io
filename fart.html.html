@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fart and Queef Buttons</title>
+  <style>
+    body {
+      background-color: #f1f1f1;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 150px;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 36px;
+    }
+
+    .button-wrapper {
+      margin-top: 30px;
+      position: relative;
+    }
+
+    .fart-button,
+    .queef-button {
+      display: inline-block;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      text-align: center;
+      font-size: 24px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition-duration: 0.4s;
+      text-decoration: none;
+      margin: 5px;
+      position: absolute;
+    }
+
+    .fart-button:hover,
+    .queef-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <script>
+    function playFartSound() {
+      var audio = new Audio('http://www.gizard.org/goother/funny/fart%20sounds/fartswear.wav');
+      audio.play();
+    }
+
+    function playQueefSound() {
+      var audio = new Audio('http://www.bingoenglish.com:8080/mediafile/words/q/queef.mp3');
+      audio.play();
+    }
+
+    function randomizeButtonColors() {
+      var buttons = document.getElementsByClassName('button');
+      for (var i = 0; i < buttons.length; i++) {
+        var button = buttons[i];
+        button.style.backgroundColor = getRandomColor();
+      }
+    }
+
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function randomizeButtonPositions() {
+      var buttons = document.getElementsByClassName('button');
+      for (var i = 0; i < buttons.length; i++) {
+        var button = buttons[i];
+        button.style.left = Math.random() * 70 + 'vw';
+        button.style.top = Math.random() * 70 + 'vh';
+      }
+    }
+
+    window.addEventListener('load', function () {
+      randomizeButtonColors();
+      randomizeButtonPositions();
+    });
+  </script>
+</head>
+<body>
+  <h1>Press the Fart or Queef Button</h1>
+  <div class="button-wrapper">
+    <button class="fart-button button" onclick="playFartSound()">Fart Button</button>
+    <button class="queef-button button" onclick="playQueefSound()">Queef Button</button>
+  </div>
+</body>
+</html>
