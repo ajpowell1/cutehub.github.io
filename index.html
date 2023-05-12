@@ -48,24 +48,33 @@
     }
   </style>
   <script>
+    var images = [
+      'https://www.boredpanda.com/blog/wp-content/uploads/2019/03/funny-dogs-stung-by-bees-17-5c877ec54bef9__700.jpg',
+      'https://pbs.twimg.com/ext_tw_video_thumb/1426975931533385730/pu/img/ELgTNVpmo8XCj_1s.jpg',
+      'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2022%2F08%2F31%2Fkitten-feeding-schedule-508030340-2000.jpg&q=60',
+      'https://images.squarespace-cdn.com/content/v1/54e8ba93e4b07c3f655b452e/1622171231958-MQ91OK7S1A2V2O5ILN6H/DSC_1306.jpg?format=1000w',
+      'https://i.ytimg.com/vi/54Y1N21NIFU/maxresdefault.jpg',
+      'https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*'
+    ];
+
     function generateRandomImage() {
-      var images = [
-        'https://example.com/image1.jpg', // URL to image 1
-        'https://example.com/image2.jpg', // URL to image 2
-        'https://example.com/image3.jpg' // URL to image 3
-      ];
-      var randomIndex = Math.floor(Math.random() * images.length);
-      var imageUrl = images[randomIndex];
       var imageContainer = document.getElementById('image-container');
+      var currentImageIndex = imageContainer.dataset.currentImageIndex || -1;
+      var randomIndex = getRandomIndex(currentImageIndex);
+      imageContainer.dataset.currentImageIndex = randomIndex;
+      var imageUrl = images[randomIndex];
       imageContainer.innerHTML = '<img src="' + imageUrl + '" alt="Cute Image">';
+    }
+
+    function getRandomIndex(excludeIndex) {
+      var randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * images.length);
+      } while (randomIndex === excludeIndex);
+      return randomIndex;
     }
   </script>
 </head>
 <body>
   <h1>Click the Button for Eye Bleach</h1>
-  <div class="button-wrapper">
-    <button class="eyebleach-button" onclick="generateRandomImage()">Eye Bleach</button>
-  </div>
-  <div class="image-container" id="image-container"></div>
-</body>
-</html>
+  <div class="button-wrapper
