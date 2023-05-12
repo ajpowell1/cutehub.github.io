@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Eye Bleach</title>
+  <title>Puppy and Kitten Pictures - Eye Bleach</title>
   <style>
     body {
       background-color: #f1f1f1;
@@ -21,7 +21,7 @@
 
     .eyebleach-button {
       display: inline-block;
-      background-color: #4CAF50;
+      background-color: navy;
       border: none;
       color: white;
       text-align: center;
@@ -35,46 +35,52 @@
     }
 
     .eyebleach-button:hover {
-      background-color: #45a049;
+      background-color: #001f3f;
     }
 
-    .image-container {
-      margin-top: 30px;
-    }
-
-    .image-container img {
-      max-width: 500px;
-      max-height: 500px;
+    img {
+      max-width: 400px;
+      margin-top: 20px;
     }
   </style>
   <script>
-    var images = [
-      'https://www.boredpanda.com/blog/wp-content/uploads/2019/03/funny-dogs-stung-by-bees-17-5c877ec54bef9__700.jpg',
-      'https://pbs.twimg.com/ext_tw_video_thumb/1426975931533385730/pu/img/ELgTNVpmo8XCj_1s.jpg',
-      'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2022%2F08%2F31%2Fkitten-feeding-schedule-508030340-2000.jpg&q=60',
-      'https://images.squarespace-cdn.com/content/v1/54e8ba93e4b07c3f655b452e/1622171231958-MQ91OK7S1A2V2O5ILN6H/DSC_1306.jpg?format=1000w',
-      'https://i.ytimg.com/vi/54Y1N21NIFU/maxresdefault.jpg',
-      'https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*'
-    ];
-
-    function generateRandomImage() {
-      var imageContainer = document.getElementById('image-container');
-      var currentImageIndex = imageContainer.dataset.currentImageIndex || -1;
-      var randomIndex = getRandomIndex(currentImageIndex);
-      imageContainer.dataset.currentImageIndex = randomIndex;
-      var imageUrl = images[randomIndex];
-      imageContainer.innerHTML = '<img src="' + imageUrl + '" alt="Cute Image">';
+    function fetchPuppyImage() {
+      fetch('https://dog.ceo/api/breeds/image/random')
+        .then(response => response.json())
+        .then(data => {
+          const imgContainer = document.getElementById('image-container');
+          imgContainer.innerHTML = ''; // Remove previously generated images
+          const img = document.createElement('img');
+          img.src = data.message;
+          imgContainer.appendChild(img);
+        })
+        .catch(error => {
+          console.log('Error fetching puppy image:', error);
+        });
     }
 
-    function getRandomIndex(excludeIndex) {
-      var randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * images.length);
-      } while (randomIndex === excludeIndex);
-      return randomIndex;
+    function fetchKittenImage() {
+      fetch('https://api.thecatapi.com/v1/images/search?mime_types=jpg,png')
+        .then(response => response.json())
+        .then(data => {
+          const imgContainer = document.getElementById('image-container');
+          imgContainer.innerHTML = ''; // Remove previously generated images
+          const img = document.createElement('img');
+          img.src = data[0].url;
+          imgContainer.appendChild(img);
+        })
+        .catch(error => {
+          console.log('Error fetching kitten image:', error);
+        });
     }
   </script>
 </head>
 <body>
-  <h1>Click the Button for Eye Bleach</h1>
-  <div class="button-wrapper
+  <h1>Press the buttons to fetch puppy or kitten pictures:</h1>
+  <div class="button-wrapper">
+    <button class="eyebleach-button" onclick="fetchPuppyImage()">Puppy</button>
+    <button class="eyebleach-button" onclick="fetchKittenImage()">Kitten</button>
+  </div>
+  <div id="image-container"></div>
+</body>
+</html>
